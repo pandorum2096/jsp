@@ -7,6 +7,9 @@ Dans ce TP, nous allons epérimenter JSP dans une application.
 3. Compilez puis tester
 4. Observez ce qui se passe dans le folder du projet, que remarquez-vous ? 
 --> Notez votre réponse dans le fichier README
+
+nous voyons afficher la liste des utilisateurs
+
 3. Commitez et push
 
 ## Partie 2: Implémentez les fonctionnalités manquantes
@@ -20,4 +23,6 @@ IMPORtANT :: Commitez et push après chaque fonctionnalité
 
 ## Partie 3: Rendu
 Complétez le tableau TP02 du document partagé avec vos noms, prénoms et liens vers le repository du tp. 
-
+ 
+---------------------------------------------------------------------
+"Lors de la compilation du projet , de nouveaux dossiers ont �t� creee dans le folder. Ce sont les dossiers classes,META-INF, empty,ap-source-output" 
