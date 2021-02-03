@@ -6,6 +6,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,14 +25,13 @@ import utilisateurs.modeles.User;
  *
  * @author michel
  */
-
 // En Java EE 6 on peut presque se passer du fichier web.xml, les annotations de codes
 // sont très pratiques !
 @WebServlet(name = "ServletUsers",
-     urlPatterns = {"/ServletUsers"},
-     initParams = {
-         @WebInitParam(name = "ressourceDir", value = "C:\\Users\\HP\\Dropbox\\Mon PC (DESKTOP-MAL4HBH)\\Documents\\GitHub\\jsp")
-     }
+        urlPatterns = {"/ServletUsers"},
+        initParams = {
+            @WebInitParam(name = "ressourceDir", value = "C:\\Users\\HP\\Dropbox\\Mon PC (DESKTOP-MAL4HBH)\\Documents\\GitHub\\jsp")
+        }
 )
 public class ServletUsers extends HttpServlet {
 
@@ -46,8 +46,10 @@ public class ServletUsers extends HttpServlet {
         Server.init(config.getInitParameter("ressourceDir"));
     }
 
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -66,25 +68,28 @@ public class ServletUsers extends HttpServlet {
                 request.setAttribute("listeDesUsers", liste);
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";
                 message = "Liste des utilisateurs";
-            } else if(action.equals("creerUtilisateursDeTest"))
-            {
-               creeUtilisateurDeTest();
-               Collection<User> liste = Server.uh.getUsers();
+            } else if (action.equals("creerUtilisateursDeTest")) {
+                creeUtilisateurDeTest();
+                Collection<User> liste = Server.uh.getUsers();
                 request.setAttribute("listeDesUsers", liste);
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";
                 message = "Liste des utilisateurs";
                 //forwardTo = "index.jsp?action=listerLesUtilisateurs";
                 //message = "les 3 nouveaux users sont crees";
-            }
-            else if(action.equals("creerUnUtilisateur"))
-            {
-               creerUtilisateur(request);
-               Collection<User> liste = Server.uh.getUsers();
+            } else if (action.equals("creerUnUtilisateur")) {
+                creerUtilisateur(request);
+                Collection<User> liste = Server.uh.getUsers();
                 request.setAttribute("listeDesUsers", liste);
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";
                 message = "tout est bien";
-            }
-            else {
+            } else if (action.equals("chercherParLogin")) {
+                User user = rechercherUtilisateur(request);
+                ArrayList<User> liste = new ArrayList<User>();
+                liste.add(user);
+                request.setAttribute("listeDesUsers", liste);
+                forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                message = "tout est bien";
+            } else {
                 forwardTo = "index.jsp?action=todo";
                 message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
             }
@@ -96,12 +101,12 @@ public class ServletUsers extends HttpServlet {
 
     }
 
-    private void creeUtilisateurDeTest(){
-     
-        try {    
-            User user1 = new User("ff123","toure","junior");
-            User user2 = new User("ff456","seke","yed");
-            User user3 = new User("ff789","karimou","yannick");
+    private void creeUtilisateurDeTest() {
+
+        try {
+            User user1 = new User("ff123", "toure", "junior");
+            User user2 = new User("ff456", "seke", "yed");
+            User user3 = new User("ff789", "karimou", "yannick");
             Server.uh.addUser(user1);
             Server.uh.addUser(user2);
             Server.uh.addUser(user3);
@@ -109,7 +114,7 @@ public class ServletUsers extends HttpServlet {
             Logger.getLogger(ServletUsers.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void creerUtilisateur(HttpServletRequest request) {
         String login, nom, prenom;
         nom = request.getParameter("nom");
@@ -118,15 +123,24 @@ public class ServletUsers extends HttpServlet {
         try {
             User user = new User(login, nom, prenom);
             Server.uh.addUser(user);
-            
+
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ServletUsers.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
+
+    public User rechercherUtilisateur(HttpServletRequest request) {
+        String login;
+        login = request.getParameter("login");
+
+        return Server.uh.getUserFromLogin(login);
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -138,8 +152,9 @@ public class ServletUsers extends HttpServlet {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -151,8 +166,9 @@ public class ServletUsers extends HttpServlet {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
