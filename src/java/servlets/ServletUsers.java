@@ -96,6 +96,15 @@ public class ServletUsers extends HttpServlet {
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";
                 message = "Liste des utilisateurs";
             }
+            else if (action.equals("deleteUtilisateur")) {
+                User user = supprimerUtilisateur(request);
+                Collection<User> liste = Server.uh.getUsers();
+               // ArrayList<User> liste = new ArrayList<User>();
+                liste.remove(user);
+                request.setAttribute("listeDesUsers", liste);
+                forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                message = "tout est bien";
+            }
             else {
                 forwardTo = "index.jsp?action=todo";
                 message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
@@ -153,8 +162,14 @@ public class ServletUsers extends HttpServlet {
         
         Server.uh.updateUser(login, login, prenom, nom);
 
-       
-        
+    }
+     
+     public User supprimerUtilisateur(HttpServletRequest request) {
+        String login;
+        login = request.getParameter("login");
+
+        return Server.uh.getUserFromLogin(login);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
