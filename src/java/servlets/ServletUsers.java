@@ -30,7 +30,7 @@ import utilisateurs.modeles.User;
 @WebServlet(name = "ServletUsers",
      urlPatterns = {"/ServletUsers"},
      initParams = {
-         @WebInitParam(name = "ressourceDir", value = "D:\\jsp")
+         @WebInitParam(name = "ressourceDir", value = "C:\\Users\\HP\\Dropbox\\Mon PC (DESKTOP-MAL4HBH)\\Documents\\GitHub\\jsp")
      }
 )
 public class ServletUsers extends HttpServlet {
@@ -76,6 +76,14 @@ public class ServletUsers extends HttpServlet {
                 //forwardTo = "index.jsp?action=listerLesUtilisateurs";
                 //message = "les 3 nouveaux users sont crees";
             }
+            else if(action.equals("creerUnUtilisateur"))
+            {
+               creerUtilisateur(request);
+               Collection<User> liste = Server.uh.getUsers();
+                request.setAttribute("listeDesUsers", liste);
+                forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                message = "tout est bien";
+            }
             else {
                 forwardTo = "index.jsp?action=todo";
                 message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
@@ -102,9 +110,19 @@ public class ServletUsers extends HttpServlet {
         }
     }
     
-    public void creerUtilisateur(String login, String nom, String prenom)
-    {
-        
+    public void creerUtilisateur(HttpServletRequest request) {
+        String login, nom, prenom;
+        nom = request.getParameter("nom");
+        prenom = request.getParameter("prenom");
+        login = request.getParameter("login");
+        try {
+            User user = new User(login, nom, prenom);
+            Server.uh.addUser(user);
+            
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ServletUsers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

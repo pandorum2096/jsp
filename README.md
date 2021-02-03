@@ -8,7 +8,7 @@ Dans ce TP, nous allons epérimenter JSP dans une application.
 4. Observez ce qui se passe dans le folder du projet, que remarquez-vous ? 
 --> Notez votre réponse dans le fichier README
 
-nous voyons afficher la liste des utilisateurs
+reponse : nous voyons afficher la liste des utilisateurs
 
 3. Commitez et push
 

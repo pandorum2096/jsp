@@ -138,4 +138,46 @@
         <lastname>karimou</lastname>
         <firstname>yannick</firstname>
     </user>
+    <user>
+        <id>78</id>
+        <login>78</login>
+        <lastname>1</lastname>
+        <firstname>1</firstname>
+    </user>
+    <user>
+        <id>78</id>
+        <login>78</login>
+        <lastname>1</lastname>
+        <firstname>1</firstname>
+    </user>
+    <user>
+        <id>2096</id>
+        <login>2096</login>
+        <lastname>aaaa</lastname>
+        <firstname>bbbb</firstname>
+    </user>
+    <user>
+        <id>2096</id>
+        <login>2096</login>
+        <lastname>aaaa</lastname>
+        <firstname>bbbb</firstname>
+    </user>
+    <user>
+        <id>2096</id>
+        <login>2096</login>
+        <lastname>aaaa</lastname>
+        <firstname>bbbb</firstname>
+    </user>
+    <user>
+        <id>2096</id>
+        <login>2096</login>
+        <lastname>aaaa</lastname>
+        <firstname>bbbb</firstname>
+    </user>
+    <user>
+        <id>001</id>
+        <login>001</login>
+        <lastname>un</lastname>
+        <firstname>deux</firstname>
+    </user>
 </users>
